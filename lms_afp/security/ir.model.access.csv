@@ -1,0 +1,15 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_lms_course_observer,lms_course_observer,model_lms_course,group_lms_observer,1,0,0,0
+access_lms_course_student,lms_course_student,model_lms_course,group_lms_student,1,0,0,0
+access_lms_course_teacher,lms_course_teacher,model_lms_course,group_lms_teacher,1,1,1,0
+access_lms_course_admin,lms_course_admin,model_lms_course,group_lms_admin,1,1,1,1
+
+access_lms_course_category_observer,lms_course_category_observer,model_lms_course_category,group_lms_observer,1,0,0,0
+access_lms_course_category_student,lms_course_category_student,model_lms_course_category,group_lms_student,1,0,0,0
+access_lms_course_category_teacher,lms_course_category_teacher,model_lms_course_category,group_lms_teacher,1,1,1,0
+access_lms_course_category_admin,lms_course_category_admin,model_lms_course_category,group_lms_admin,1,1,1,1
+
+access_lms_course_line_observer,lms_course_line_observer,model_lms_course_line,group_lms_observer,1,0,0,0
+access_lms_course_line_student,lms_course_line_student,model_lms_course_line,group_lms_student,1,0,0,0
+access_lms_course_line_teacher,lms_course_line_teacher,model_lms_course_line,group_lms_teacher,1,1,1,0
+access_lms_course_line_admin,lms_course_line_admin,model_lms_course_line,group_lms_admin,1,1,1,1

@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo> 
+    <data>
+    
+        <!-- CATEGORY -->
+        <record model="ir.ui.view" id="lms_course_category_tree">
+            <field name="name">lms.course.category.tree</field>
+            <field name="model">lms.course.category</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name"/>
+                    <field name="color"/>
+                </tree>
+          </field>
+        </record> 
+
+        <record id="lms_course_category_action" model="ir.actions.act_window">
+            <field name="name">Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lms.course.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- Course Line Items -->
+        <record model="ir.ui.view" id="lms_course_line_tree">
+            <field name="name">lms.course.line.tree</field>
+            <field name="model">lms.course.line</field>
+            <field name="arch" type="xml">
+                <tree>
+                   <field name="name"/> 
+                   <field name="description"/> 
+                   <field name="date_from"/>
+                   <field name="date_to"/>
+                   <field name="state"/>
+                </tree>
+          </field>
+        </record> 
+
+
+        <record model="ir.ui.view" id="lms_course_line_form">
+            <field name="name">lms.course.line.form</field>
+            <field name="model">lms.course.line</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar" clickable="1"/>
+                    </header>
+
+                    <sheet>
+                        <div class="oe_button_box" name="button_box" groups="base.group_user">
+                            <button class="oe_stat_button" type="object"
+                                name="action_submission_wizard"
+                                icon="fa-floppy-o">Turn In
+                                <!-- <field string="Submission" name="submission_count" widget="statinfo"/> -->
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Section Name"/>
+                            </h1>
+                        </div>
+
+                        <group>
+                            <field name="description"/>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="activity"/>
+                            <field name="turnin"/>
+                            <field name="course_id" invisible="1"/>
+                            <field name="group_id" domain="[('course_id','=',course_id)]"/>
+                            <field name="attachment_ids" widget="many2many_binary" colspan="2"
+                               string="Upload Files" nolabel="1"/>
+                        </group>
+
+                        <notebook>
+                            <page string="Info">
+                                <field name="info" widget="html"/>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+                    <div class="oe_chatter">
+                       <field name="message_follower_ids" widget="mail_followers"/>
+                       <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+          </field>
+        </record> 
+
+
+
+        <record id="view_lms_course_line_kanban" model="ir.ui.view">
+            <field name="name">lms.course.line.kanban</field>
+            <field name="model">lms.course.line</field>
+            <field name="arch" type="xml">
+                <kanban class="o_kanban_mobile">
+                    <field name="name"/>
+                    <field name="description"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div >
+                                <a href="#" name="action_go_to_activity" type="object" string="Go to Activity">
+                                <div class="row mb4">
+                                    <div class="col-6">
+                                        <strong><span><t t-esc="record.name.value"/></span></strong>
+                                        <ul>
+                                            <li><strong><span><t t-esc="record.description.value"/></span></strong></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                </a>
+                            </div>
+                            
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <record id="lms_course_line_action" model="ir.actions.act_window">
+            <field name="name">Outline</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lms.course.line</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+
+
+
+        <!-- LMS Partner -->
+        <record model="ir.ui.view" id="lms_partner_tree">
+            <field name="name">lms.partner.tree</field>
+            <field name="model">lms.partner</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="info_afpsn"/>
+                    <field name="info_blood_type"/>
+                    <field name="info_bos"/>
+                    <field name="gender"/>
+                    <field name="email"/>
+                </tree>
+          </field>
+        </record> 
+
+        <record model="ir.ui.view" id="lms_partner_form">
+            <field name="name">lms.partner.form</field>
+            <field name="model">lms.partner</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box" groups="base.group_user">
+                        </div>
+                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;:&quot;image_medium&quot;}"/>
+
+                        <field name="partner_image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;:&quot;partner_image_medium&quot;}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Section Name"/>
+                                
+                            </h1>
+                            <div name="options_active">
+                                <div>
+                                    <label for="user_id" class="oe_inline" string="Related User:"/>
+                                    <field name="user_id"/>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <group>
+                            <group>
+                                <field name="first_name"/>
+                                <field name="middle_name"/>
+                                <field name="last_name"/>
+                                <field name="gender"/>
+                            </group>
+                            <group>
+                                <field name="info_afpsn"/>
+                                <field name="info_blood_type"/>
+                                <field name="info_bos"/>
+                            </group>
+                        </group>
+
+                        <notebook>
+                            <page string="Info">
+                                <field name="description" widget="html"/>
+                            </page>
+                            <page string="Configuration">
+                                <group>
+                                    <field name="student"/>
+                                    <field name="faculty"/>
+                                </group>
+                            </page>
+                        </notebook>
+
+                    </sheet>
+
+                </form>
+          </field>
+        </record> 
+
+        <record model="ir.ui.view" id="lms_partner_kanban">
+            <field name="name">lms.partner.kanban</field>
+            <field name="model">lms.partner</field>
+            <field name="arch" type="xml">
+                <kanban class="o_hr_employee_kanban">
+                    <field name="id"/>
+                    <field name="name"/>
+                    <field name="info_afpsn"/>
+                    <field name="info_blood_type"/>
+                    <field name="info_bos"/>
+
+                    <templates>
+                        <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                            <!-- Medium employee's picture -->
+                            <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image: url(#{kanban_image('lms.partner', 'image_medium', record.id.raw_value)})" role="img"/>
+                            <!-- Employee's picture optimized for mobile -->
+                            <div class="o_kanban_image d-md-none rounded-circle" t-attf-style="background-image: url(#{kanban_image('lms.partner', 'image_small', record.id.raw_value)})" role="img"/>
+
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                        <ul>
+                                            <li><field name="info_afpsn"/></li>
+                                            <li><field name="info_blood_type"/></li>
+                                            <li><field name="info_bos"/></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </t>
+                    </templates>
+                </kanban>
+          </field>
+        </record> 
+
+
+
+        <record id="lms_partner_action" model="ir.actions.act_window">
+            <field name="name">LMS Partner</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lms.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+        </record>
+        
+
+
+
+
+        <!-- COURSES -->
+        
+        <record model="ir.ui.view" id="lms_course_tree">
+            <field name="name">lms.course.tree</field>
+            <field name="model">lms.course</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="progress" widget="progressbar"/>
+                    <field name="category_ids"/>
+                </tree>
+          </field>
+        </record> 
+
+        <record model="ir.ui.view" id="lms_course_form">
+            <field name="name">lms.course.form</field>
+            <field name="model">lms.course</field>
+            <field name="arch" type="xml">
+                <form string="Asset category">
+                    <sheet>
+                        <div class="oe_button_box" name="button_box" groups="base.group_user">
+                            <button class="oe_stat_button" type="object"
+                                name="action_calendar_activity"
+                                icon="fa-calendar">
+                                <field string="Activities" name="activity_count" widget="statinfo"/>
+                            </button>
+                        </div>
+
+                        <field name="image" widget="image" class="oe_avatar" options="{&quot;preview_image&quot;:&quot;image_medium&quot;}"/>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Project Name"/>
+                            </h1>
+                            <div name="options_active">
+                                <div>
+                                    <label for="progress" class="oe_inline" string="Course Progress :"/>
+                                    <field name="progress" widget="progressbar"/>
+                                </div>
+                                <div>
+                                    <label for="category_id" class="oe_inline" string="Course Category :"/>
+                                    <field name="category_ids" class="oe_inline oe_input_align" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                                </div>
+                            </div>
+                        </div>
+
+                        <group>
+                            <field name="description"/>
+                            
+                        </group>
+                        
+                        <notebook>
+                            <page string="Course">
+                                <field name="info" widget="html"/>
+                                
+                                <field name="line_ids" >
+                                    <tree class="tree_no_open">
+                                       <field name="sequence" widget="handle" class="oe_edit_only"/> 
+                                       <field name="record_id" widget="many2one_clickable"/>
+                                       <field name="description"/> 
+                                       <field name="date_from"/>
+                                       <field name="date_to"/>
+                                       <field name="state"/>
+                                       <field name="group_id"/>
+                                       <button name="action_go_to_activity" string="Go to Activity" type="object" class="oe_highlight"/>
+                                   </tree>
+                                   <form>
+                                        <group>
+                                            <field name="name"/> 
+                                            <field name="description"/> 
+                                        </group>
+                                        <group>
+                                            <group>
+                                                <field name="date_from"/>
+                                                <field name="date_to"/>
+                                            </group>
+                                            <group>
+                                                <field name="state"/>
+                                                <field name="course_id" invisible="1"/>
+                                            </group>
+                                        </group>
+                                        <group>
+                                            <field name="group_id" domain="[('course_id','=',course_id)]"/>
+
+                                            <field name="faculty_ids" widget="many2many_tags"/>
+                                            <field name="attachment_ids" widget="many2many_binary"/>
+                                        </group>
+                                        <field name="info" widget="html"/>
+                                   </form>
+                                </field>                             
+                            </page>
+                            <page string="Faculty">
+                                <field name="faculty_ids" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" mode="kanban"/>
+                            </page>
+                            <page string="Student">
+                                <field name="student_ids" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}" mode="kanban"/>
+                            </page>
+                            <page string="Groups">
+                                <field name="group_ids" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                                <group>
+                                    <field name="user_ids"/>
+                                </group>
+                            </page>
+                            <page string="Survey Forms">
+                                <field name="form_ids"/>
+                            </page>
+                            <page string="Submissions">
+                                <field name="all_submission_ids">
+                                    <tree class="tree_no_open">
+                                        <field name="course_line_id" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="attachment_ids" widget="many2many_binary" colspan="2" string="Upload Files" nolabel="1"/>
+
+                                    </tree>
+                                </field>
+                            </page>
+                            
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+        <record id="lms_course_kanban_view" model="ir.ui.view">
+          <field name="name">lms.course.kanban.view</field>
+          <field name="model">lms.course</field>
+          <field name="arch" type="xml">
+                <kanban class="o_lms_course_kanban" create="0">
+                <field name="id"/>
+                <field name="color"/>
+                <field name="category_ids"/>
+                <field name="name"/>
+
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click o_kanban_record_has_image_fill">
+                            <!-- Medium employee's picture -->
+                            <div class="o_kanban_image_fill_left d-none d-md-block" t-attf-style="background-image: url(#{kanban_image('lms.course', 'image_medium', record.id.value)})" role="img"/>
+                            <!-- Employee's picture optimized for mobile -->
+                            <div class="o_kanban_image d-md-none rounded-circle" t-attf-style="background-image: url(#{kanban_image('lms.course', 'image_small', record.id.value)})" role="img"/>
+
+                            <div class="oe_kanban_details">
+                                <div class="o_kanban_record_top">
+                                    <div class="o_kanban_record_headings">
+                                        <strong class="o_kanban_record_title">
+                                            <field name="name"/>
+                                        </strong>
+                                        <span t-if="record.description.raw_value" class="o_kanban_record_subtitle"><field name="description"/></span>
+                                    </div>
+                                </div>
+                                <ul>
+                                    <li> <field name="category_ids" widget="many2many_tags" options="{'color_field': 'color'}"/> </li>
+                                    <li> <field name="progress" widget="progressbar"/> </li>
+                                </ul>
+                            </div>
+
+                        </div>
+                    </t>
+                </templates>
+               </kanban>
+          </field>
+        </record>
+
+
+
+        <record id="lms_course_action" model="ir.actions.act_window">
+            <field name="name">Courses</field>
+            <field name="res_model">lms.course</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">kanban,tree,form</field>
+            <field name="domain">[]</field>
+        </record>
+
+        <!-- LMS Groups -->
+        <record model="ir.ui.view" id="lms_course_group_tree">
+            <field name="name">lms.course.group.tree</field>
+            <field name="model">lms.course.group</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                    <field name="group_type"/>
+                    <field name="student_ids" widget="many2many_tags" options="{'no_create_edit': True, 'no_create': True, 'no_open': True}"/>
+                </tree>
+          </field>
+        </record> 
+
+        <record id="lms_course_group_action" model="ir.actions.act_window">
+            <field name="name">LMS Partner</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lms.course.group</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+
+
+
+
+
+        <!-- Course Line Submissions -->
+        <record model="ir.ui.view" id="lms_course_line_submission_tree">
+            <field name="name">lms.course.line.submission.tree</field>
+            <field name="model">lms.course.line.submission</field>
+            <field name="arch" type="xml">
+                <tree>
+                   <field name="course_line_id"/> 
+                   <field name="user_id"/> 
+                </tree>
+          </field>
+        </record> 
+
+
+        <record model="ir.ui.view" id="lms_course_line_submission_form">
+            <field name="name">lms.course.line.submission.form</field>
+            <field name="model">lms.course.line.submission</field>
+            <field name="arch" type="xml">
+                <form>
+                    <header>
+                        <field name="state" widget="statusbar" clickable="1"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="course_line_id" readonly="1"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="attachment_ids" widget="many2many_binary" colspan="2"
+                               string="Upload Files" />
+                            <!-- 
+                            <field name="attachment2_ids" nolabel="1" class="oe_read_only">
+                                <kanban quick_create="false" create="false">
+                                    <field name="id"/>
+                                    <field name="name"/>
+                                    <field name="mimetype"/>
+                                    <field name="type"/>
+                                    <field name="url"/>
+                                    <field name="type"/>
+                                    <field name="datas"/>
+                                    <field name="res_id"/>
+                                    <templates>
+                                        <t t-name="kanban-box">
+                                            <a  t-attf-href="/web/content/{{ record.id.value }}" >
+                                            <div style="position: relative" >
+                                                <div class="oe_module_vignette">
+                                                    <div class="oe_module_desc o_kanban_record_title">
+                                                        <field name="name"/>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            </a>
+                                        </t>
+                                    </templates>
+
+                                </kanban>
+                            </field>
+                             -->
+                        </group>
+                        <footer>
+                            <button class="oe_stat_button oe_highlight" type="object" name="action_submit" string="Submit" icon="fa-floppy-o"/>
+                        </footer>
+                    </sheet>
+                    <div class="oe_chatter">
+                       <field name="message_follower_ids" widget="mail_followers"/>
+                       <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+          </field>
+        </record> 
+
+
+        <record id="lms_course_line_submission_action" model="ir.actions.act_window">
+            <field name="name">Submission</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">lms.course.line.submission</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+
+
+
+
+    </data>
+
+</odoo>

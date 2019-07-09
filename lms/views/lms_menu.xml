@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+	<menuitem id="lms_main_menu" name="LMS" web_icon="lms,static/description/icon.png" sequence="100"/>
+	
+	<menuitem id="lms_course_menu" name="Courses" parent="lms_main_menu" action="lms_course_action" sequence="6" groups="lms.group_lms_course_director"/>
+	
+	<menuitem id="lms_partner_menu" name="Partner" parent="lms_main_menu" action="lms_partner_action" sequence="6" groups="lms.group_lms_admin"/>
+
+
+	<menuitem id="lms_course_student_menu" name="Courses" parent="lms_main_menu" action="lms_course_action_form" sequence="6"  groups="lms.group_lms_student"/>
+	<menuitem id="lms_course_line_student_menu" name="Activities" parent="lms_main_menu" action="lms_course_line_student_action_form" sequence="6"  groups="lms.group_lms_student"/>
+
+
+
+    <menuitem id="lms_course_configuration_menu" name="Configurations" parent="lms_main_menu" sequence="100" groups="lms.group_lms_admin"/>
+    <menuitem id="lms_course_category_menu" name="Course Category" parent="lms_course_configuration_menu" action="lms_course_category_action" sequence="6" />
+    <menuitem id="lms_course_line_menu" name="Course Outline" parent="lms_course_configuration_menu" action="lms_course_line_action" sequence="6" />
+    <menuitem id="lms_course_group_menu" name="Course Groups" parent="lms_course_configuration_menu" action="lms_course_group_action" sequence="6" />
+    <menuitem id="lms_course_line_submission__menu" name="Submissions" parent="lms_course_configuration_menu" action="lms_course_line_submission_action" sequence="6" />
+
+
+
+
+    
+
+</odoo>
